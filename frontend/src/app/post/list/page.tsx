@@ -37,6 +37,19 @@ export default async function Page({
 
       <hr />
 
+      <form>
+        <select name="keywordType">
+          <option value="title">제목</option>
+          <option value="content">내용</option>
+        </select>
+        <input
+          placeholder="검색어 입력"
+          type="text"
+          name="keyword"
+          defaultValue={keyword}
+        ></input>
+      </form>
+
       <ul>
         {pageDto.items.map((item: PostDto) => {
           // java 스트림에서 map()을 사용하는 것과 유사하다
