@@ -68,7 +68,7 @@ public class PostService {
 	public Page<Post> getListedItems(int page, int pageSize, SearchKeywordType keywordType, String keyword) {
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		String likeKeyword = "%" + keyword + "%";
-		if (SearchKeywordType.CONTENT.equals(keywordType)) {
+		if (SearchKeywordType.content.equals(keywordType)) {
 			return postRepository.findByListedAndContentLike(true, likeKeyword, pageRequest);
 		}
 		return postRepository.findByListedAndTitleLike(true, likeKeyword, pageRequest);
@@ -77,7 +77,7 @@ public class PostService {
 	public Page<Post> getMines(int page, int pageSize, Member author, SearchKeywordType keywordType, String keyword) {
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		String likeKeyword = "%" + keyword + "%";
-		if (SearchKeywordType.CONTENT.equals(keywordType)) {
+		if (SearchKeywordType.content.equals(keywordType)) {
 			return postRepository.findByAuthorAndContentLike(author, likeKeyword, pageRequest);
 		}
 		return postRepository.findByAuthorAndTitleLike(author, likeKeyword, pageRequest);

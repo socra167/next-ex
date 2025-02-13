@@ -64,7 +64,7 @@ class ApiV1PostControllerTest {
 					get("/api/v1/posts")
 				)
 				.andDo(print());
-			var posts = postService.getListedItems(page, pageSize, SearchKeywordType.TITLE, "").getContent();
+			var posts = postService.getListedItems(page, pageSize, SearchKeywordType.title, "").getContent();
 
 			resultActions
 				.andExpect(status().isOk())
@@ -101,7 +101,7 @@ class ApiV1PostControllerTest {
 		void itemsB_searchPostsByTitle() throws Exception {
 			var page = 1;
 			var pageSize = 3;
-			var keywordType = "TITLE";
+			var keywordType = "title";
 			var keyword = "title";
 			var resultActions = mvc
 				.perform(
@@ -122,7 +122,7 @@ class ApiV1PostControllerTest {
 				.andExpect(jsonPath("$.data.totalPages").value(3)) // 전체 페이지 개수
 				.andExpect(jsonPath("$.data.totalItems").value(7));
 
-			var searchedPosts = postService.getListedItems(page, pageSize, SearchKeywordType.TITLE, keyword).getContent();
+			var searchedPosts = postService.getListedItems(page, pageSize, SearchKeywordType.title, keyword).getContent();
 			checkPosts(resultActions, searchedPosts);
 		}
 
@@ -131,7 +131,7 @@ class ApiV1PostControllerTest {
 		void itemsC_searchPostsByContent() throws Exception {
 			var page = 1;
 			var pageSize = 3;
-			var keywordType = "CONTENT";
+			var keywordType = "content";
 			var keyword = "content";
 			var resultActions = mvc
 				.perform(
@@ -152,7 +152,7 @@ class ApiV1PostControllerTest {
 				.andExpect(jsonPath("$.data.totalPages").value(3)) // 전체 페이지 개수
 				.andExpect(jsonPath("$.data.totalItems").value(7));
 
-			var searchedPosts = postService.getListedItems(page, pageSize, SearchKeywordType.CONTENT, keyword).getContent();
+			var searchedPosts = postService.getListedItems(page, pageSize, SearchKeywordType.content, keyword).getContent();
 			checkPosts(resultActions, searchedPosts);
 		}
 
@@ -161,7 +161,7 @@ class ApiV1PostControllerTest {
 		void itemsD_myPosts() throws Exception {
 			var page = 1;
 			var pageSize = 3;
-			var keywordType = "CONTENT";
+			var keywordType = "content";
 			var keyword = "content";
 			var resultActions = mvc
 				.perform(
