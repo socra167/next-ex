@@ -1,21 +1,7 @@
-type PostDto = {
-  id: number;
-  createdDate: string;
-  modifiedDate: string;
-  authorId: number;
-  authorName: string;
-  title: string;
-  published: boolean;
-  listed: boolean;
-};
+import { components } from "@/lib/backend/apiV1/schema";
 
-type PostItemPageDto = {
-  currentPageNo: number;
-  pageSize: number;
-  totalPages: number;
-  totalItems: number;
-  items: PostDto[];
-};
+type PostDto = components["schemas"]["PostDto"];
+type PostItemPageDto = components["schemas"]["PageDto"];
 
 export default async function Page() {
   // api 호출
@@ -46,7 +32,7 @@ export default async function Page() {
       <hr />
 
       <ul>
-        {pageDto.items.map((item: PostDto) => {
+        {pageDto.items?.map((item: PostDto) => {
           // java 스트림에서 map()을 사용하는 것과 유사하다
           // any로 뭐든 들어올 수 있다고 알려준다. (java에서 Object와 비슷한 느낌)
           // 자바 스크립트가 HTML을 반복문으로 만들려면, key를 넣어줘야 한다 (반복문 안에 있으면)
