@@ -1,7 +1,13 @@
-import { components } from "@/lib/backend/apiV1/schema";
+import { components, paths } from "@/lib/backend/apiV1/schema";
+import createClient from "openapi-fetch";
 
-type PostDto = components["schemas"]["PostDto"];
-type PostItemPageDto = components["schemas"]["PageDto"];
+// type PostDto = components["schemas"]["PostDto"];
+// type PostItemPageDto = components["schemas"]["PageDto"];
+// client에서 꺼내면 타입이 정해지므로 이것도 이제 필요 없다!
+
+const client = createClient<paths>({
+  baseUrl: "http://localhost:8000",
+});
 
 export default async function Page({
   searchParams,
@@ -12,16 +18,32 @@ export default async function Page({
   };
 }) {
   const { keywordType = "title", keyword = "" } = await searchParams;
-  const response = await fetch(
-    `http://localhost:8080/api/v1/posts?keywordType=${keywordType}&keyword=${keyword}`
-  );
 
-  if (!response.ok) {
-    throw new Error("에러");
-  }
+  const response = await client.GET("/api/v1/posts", {
+    params: {
+      query: {
+        keyword: keyword,
+        keywordType: keywordType,
+      },
+    },
+  });
 
-  const rsData = await response.json();
-  const pageDto: PostItemPageDto = rsData.data;
+  // 타입정보를 주지 않아도 알아서 응답에 맞는 타입이 된다!
+  const rsData = response.data!!;
+  const pageDto = rsData.data;
+
+  pageDto.items;
+
+  //   const response = await fetch(
+  //     `http://localhost:8080/api/v1/posts?keywordType=${keywordType}&keyword=${keyword}`
+  //   );
+
+  //   if (!response.ok) {
+  //     throw new Error("에러");
+  //   }
+
+  //   const rsData = await response.json();
+  //   const pageDto: PostItemPageDto = rsData.data; // 여기선 타입 정보를 직접 넘겼다.
 
   return (
     <div>
@@ -51,10 +73,7 @@ export default async function Page({
       </form>
 
       <ul>
-        {pageDto.items.map((item: PostDto) => {
-          // java 스트림에서 map()을 사용하는 것과 유사하다
-          // any로 뭐든 들어올 수 있다고 알려준다. (java에서 Object와 비슷한 느낌)
-          // 자바 스크립트가 HTML을 반복문으로 만들려면, key를 넣어줘야 한다 (반복문 안에 있으면)
+        {pageDto.items.map((item) => {
           return (
             <li className="border-2 border-red-500 my-2 p-2" key={item.id}>
               <div>id: {item.id}</div>
