@@ -1,5 +1,6 @@
 package com.next.domain.member.member.controller;
 
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,6 @@ import com.next.domain.member.member.dto.MemberDto;
 import com.next.domain.member.member.entity.Member;
 import com.next.domain.member.member.service.MemberService;
 import com.next.global.Rq;
-import com.next.global.aspect.ResponseAspect;
 import com.next.global.dto.RsData;
 import com.next.global.exception.ServiceException;
 
@@ -55,7 +55,7 @@ public class ApiV1MemberController {
 	record LoginReqBody(@NotBlank String username, @NotBlank String password) {
 	}
 
-	record LoginResBody(MemberDto item, String apiKey, String accessToken ) {
+	record LoginResBody(@NonNull MemberDto item, @NonNull String apiKey, @NonNull String accessToken ) {
 	}
 
 	@Operation(summary = "로그인", description = "로그인 성공 시 ApiKey와 AccessToken을 반환한다. 쿠키로도 반환한다.")

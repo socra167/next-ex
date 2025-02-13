@@ -2,19 +2,27 @@ package com.next.domain.post.comment.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.lang.NonNull;
+
 import com.next.domain.post.comment.entity.Comment;
 
 import lombok.Getter;
 
 @Getter
 public class CommentDto {
-
+    @NonNull
     private long id;
+    @NonNull
     private String content;
+    @NonNull
     private long postId;
+    @NonNull
     private long authorId;
+    @NonNull
     private String authorName;
+    @NonNull
     private LocalDateTime createdTime;
+    @NonNull
     private LocalDateTime modifiedTime;
 
     public CommentDto(Comment comment) {

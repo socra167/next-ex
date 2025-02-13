@@ -1,6 +1,7 @@
 package com.next.domain.post.post.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,7 +74,11 @@ public class ApiV1PostController {
 		);
 	}
 
-	record WriteReqBody(@NotBlank String title, @NotBlank String content, boolean published, boolean listed) {
+	record WriteReqBody(
+		@NotBlank String title,
+		@NotBlank String content,
+		boolean published,
+		boolean listed) {
 	}
 
 	@Operation(summary = "글 작성", description = "로그인한 사용자만 글 작성 가능")
@@ -147,7 +152,10 @@ public class ApiV1PostController {
 		);
 	}
 
-	record StatisticsResBody(long postCount, long postPublishedCount, long postListedCount) {
+	record StatisticsResBody(
+		@NonNull long postCount,
+		@NonNull long postPublishedCount,
+		@NonNull long postListedCount) {
 	}
 
 	@Operation(summary = "글 통계")
