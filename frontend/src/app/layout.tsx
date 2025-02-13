@@ -25,7 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-[100dvh] flex flex-col">
-        <header>헤더</header>
+        <header className="flex gap-3">
+          <a href="/">메인</a>
+          <a href="/about">소개</a>
+        </header>
         <div className="flex-grow">{children}</div>
         <footer>푸터</footer>
       </body>
