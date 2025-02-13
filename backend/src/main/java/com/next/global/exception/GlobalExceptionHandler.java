@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.next.global.app.AppConfig;
+import com.next.global.dto.Empty;
 import com.next.global.dto.RsData;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<RsData<Void>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<RsData<Empty>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 
         String message = e.getBindingResult().getFieldErrors()
                 .stream()
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(ServiceException.class)
-    public ResponseEntity<RsData<Void>> ServiceExceptionHandle(ServiceException ex) {
+    public ResponseEntity<RsData<Empty>> ServiceExceptionHandle(ServiceException ex) {
 
         // 개발 모드에서만 작동되도록.
         if(AppConfig.isNotProd()) ex.printStackTrace();

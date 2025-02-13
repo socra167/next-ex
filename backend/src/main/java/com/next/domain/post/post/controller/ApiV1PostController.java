@@ -19,6 +19,7 @@ import com.next.domain.post.post.dto.PostWithContnetDto;
 import com.next.domain.post.post.entity.Post;
 import com.next.domain.post.post.service.PostService;
 import com.next.global.Rq;
+import com.next.global.dto.Empty;
 import com.next.global.dto.RsData;
 import com.next.global.exception.ServiceException;
 
@@ -119,7 +120,7 @@ public class ApiV1PostController {
 	@Operation(summary = "글 삭제", description = "작성자와 관리자만 글 삭제 가능")
 	@DeleteMapping("{id}")
 	@Transactional
-	public RsData<Void> delete(@PathVariable long id) {
+	public RsData<Empty> delete(@PathVariable long id) {
 		Member actor = rq.getActor();
 		Post post = postService.getItem(id).get();
 
