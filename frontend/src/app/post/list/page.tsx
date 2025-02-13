@@ -13,6 +13,7 @@ export default async function Page() {
   console.log(rsData.code);
   console.log(rsData.msg);
   console.log(rsData.data);
+  const pageDto = rsData.data;
 
   return (
     <div>
@@ -21,11 +22,29 @@ export default async function Page() {
       <div>응답 코드: {rsData.code}</div>
       <div>결과 메시지: {rsData.msg}</div>
 
+      <div>totalPages: {pageDto.totalPages}</div>
+      <div>totalItems: {pageDto.totalItems}</div>
+      <div>currentPageNo: {pageDto.currentPageNo}</div>
+      <div>pageSize: {pageDto.pageSize}</div>
+
       <hr />
 
       <ul>
-        <li>글1</li>
-        <li>글2</li>
+        {pageDto.items.map((item: any) => {
+          // java 스트림에서 map()을 사용하는 것과 유사하다
+          // any로 뭐든 들어올 수 있다고 알려준다. (java에서 Object와 비슷한 느낌)
+          // 자바 스크립트가 HTML을 반복문으로 만들려면, key를 넣어줘야 한다 (반복문 안에 있으면)
+          return (
+            <li className="border-2 border-red-500 my-2 p-2" key={item.id}>
+              <div>id: {item.id}</div>
+              <div>title: {item.title}</div>
+              <div>authorId: {item.authorId}</div>
+              <div>authorName: {item.authorName}</div>
+              <div>published: {item.published}</div>
+              <div>listed: {item.listed}</div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
