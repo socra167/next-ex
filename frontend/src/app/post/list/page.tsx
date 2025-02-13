@@ -1,3 +1,22 @@
+type PostDto = {
+  id: number;
+  createdDate: string;
+  modifiedDate: string;
+  authorId: number;
+  authorName: string;
+  title: string;
+  published: boolean;
+  listed: boolean;
+};
+
+type PostItemPageDto = {
+  currentPageNo: number;
+  pageSize: number;
+  totalPages: number;
+  totalItems: number;
+  items: PostDto[];
+};
+
 export default async function Page() {
   // api 호출
   const response = await fetch("http://localhost:8080/api/v1/posts");
@@ -10,10 +29,7 @@ export default async function Page() {
   }
 
   const rsData = await response.json(); // 서버는 JSON으로 응답한다. json()으로 넘어온 데이터를 역직렬화해서 객체로 쓸 수 있게 해준다.
-  console.log(rsData.code);
-  console.log(rsData.msg);
-  console.log(rsData.data);
-  const pageDto = rsData.data;
+  const pageDto: PostItemPageDto = rsData.data;
 
   return (
     <div>
@@ -30,7 +46,7 @@ export default async function Page() {
       <hr />
 
       <ul>
-        {pageDto.items.map((item: any) => {
+        {pageDto.items.map((item: PostDto) => {
           // java 스트림에서 map()을 사용하는 것과 유사하다
           // any로 뭐든 들어올 수 있다고 알려준다. (java에서 Object와 비슷한 느낌)
           // 자바 스크립트가 HTML을 반복문으로 만들려면, key를 넣어줘야 한다 (반복문 안에 있으면)
