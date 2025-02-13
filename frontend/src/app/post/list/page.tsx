@@ -3,18 +3,24 @@ import { components } from "@/lib/backend/apiV1/schema";
 type PostDto = components["schemas"]["PostDto"];
 type PostItemPageDto = components["schemas"]["PageDto"];
 
-export default async function Page() {
-  // api 호출
-  const response = await fetch("http://localhost:8080/api/v1/posts");
-  // const json = response.json(); 이런 식으로 response를 사용하기 위해선, 위 함수의 응답이 들어와야 한다.
-  // 응답이 돌아올 때 까지 대기 하기 위해 await을 사용한다. await을 사용하는 함수는 async가 되어야 한다.
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: {
+    keywordType?: "title" | "content";
+    keyword: string;
+  };
+}) {
+  const { keywordType = "title", keyword = "" } = await searchParams;
+  const response = await fetch(
+    `http://localhost:8080/api/v1/posts?keywordType=${keywordType}&keyword=${keyword}`
+  );
 
   if (!response.ok) {
-    // response 응답이 OK가 아니면 에러 발생
     throw new Error("에러");
   }
 
-  const rsData = await response.json(); // 서버는 JSON으로 응답한다. json()으로 넘어온 데이터를 역직렬화해서 객체로 쓸 수 있게 해준다.
+  const rsData = await response.json();
   const pageDto: PostItemPageDto = rsData.data;
 
   return (
