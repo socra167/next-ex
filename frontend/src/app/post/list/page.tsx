@@ -20,7 +20,6 @@ export default async function Page() {
 
       <div>응답 코드: {rsData.code}</div>
       <div>결과 메시지: {rsData.msg}</div>
-      <div>결과 게시물: {rsData.data.items}</div>
 
       <hr />
 
