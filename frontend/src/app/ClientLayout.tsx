@@ -40,7 +40,9 @@ export default function ClinetLayout({
                 alert("로그아웃되었습니다.");
 
                 // router.push("/post/list"); // 브라우저 방식 X, 넥스트JS 방식
-                window.location.href = "/"; // 브라우저 방식
+                // window.location.href = "/"; // 브라우저 방식
+                router.push("/");
+                router.refresh(); // 🔥 서버 데이터 다시 불러오기
               }}
             >
               로그아웃
