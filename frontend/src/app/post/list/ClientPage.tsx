@@ -1,7 +1,9 @@
+"use client";
+
 import { components } from "@/lib/backend/apiV1/schema";
 import Link from "next/link";
 
-export default async function ClientPage({
+export default function ClientPage({
   rsData,
   keywordType,
   keyword,
