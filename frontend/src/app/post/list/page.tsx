@@ -1,12 +1,9 @@
 import { components, paths } from "@/lib/backend/apiV1/schema";
+import Link from "next/link";
 import createClient from "openapi-fetch";
 
-// type PostDto = components["schemas"]["PostDto"];
-// type PostItemPageDto = components["schemas"]["PageDto"];
-// client에서 꺼내면 타입이 정해지므로 이것도 이제 필요 없다!
-
 const client = createClient<paths>({
-  baseUrl: "http://localhost:8000",
+  baseUrl: "http://localhost:8080",
 });
 
 export default async function Page({
@@ -15,35 +12,32 @@ export default async function Page({
   searchParams: {
     keywordType?: "title" | "content";
     keyword: string;
+    pageSize: number;
+    page: number;
   };
 }) {
-  const { keywordType = "title", keyword = "" } = await searchParams;
+  const {
+    keywordType = "title",
+    keyword = "",
+    pageSize = 10,
+    page = 1,
+  } = await searchParams;
 
   const response = await client.GET("/api/v1/posts", {
     params: {
       query: {
-        keyword: keyword,
-        keywordType: keywordType,
+        keyword,
+        keywordType,
+        pageSize,
+        page,
       },
     },
   });
 
-  // 타입정보를 주지 않아도 알아서 응답에 맞는 타입이 된다!
   const rsData = response.data!!;
   const pageDto = rsData.data;
 
   pageDto.items;
-
-  //   const response = await fetch(
-  //     `http://localhost:8080/api/v1/posts?keywordType=${keywordType}&keyword=${keyword}`
-  //   );
-
-  //   if (!response.ok) {
-  //     throw new Error("에러");
-  //   }
-
-  //   const rsData = await response.json();
-  //   const pageDto: PostItemPageDto = rsData.data; // 여기선 타입 정보를 직접 넘겼다.
 
   return (
     <div>
@@ -70,8 +64,21 @@ export default async function Page({
           name="keyword"
           defaultValue={keyword}
         ></input>
+        <input type="submit" value="검색"></input>
+        <label className="ml-2">페이지당 행 개수</label>
+        <select name="pageSize">
+          <option value="10">10</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+        </select>
       </form>
-
+      <div className="flex gap-3">
+        {Array.from({ length: pageDto.totalPages }, (_, i) => i + 1).map(
+          (page) => {
+            return <Link href={`/post/list?page=${page}`}>{page}</Link>;
+          }
+        )}
+      </div>
       <ul>
         {pageDto.items.map((item) => {
           return (
