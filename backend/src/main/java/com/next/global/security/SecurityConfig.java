@@ -85,7 +85,7 @@ public class SecurityConfig {
 	public UrlBasedCorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		// 허용할 오리진 설정
-		configuration.setAllowedOrigins(Arrays.asList("https://cdpn.io", AppConfig.getSiteFrontUrl()));
+		configuration.setAllowedOriginPatterns(Arrays.asList("https://cdpn.io", AppConfig.getSiteFrontUrl()));
 		// 허용할 HTTP 메서드 설정
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		// 자격 증명 허용 설정
