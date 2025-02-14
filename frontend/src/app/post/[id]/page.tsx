@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { id: number } }) {
   if (response.error) {
     // 비어 있으면 if문 통과(에러가 없으면)
     console.log(response);
-    return;
+    return <div>{response.error.msg}</div>;
   }
 
   const rsData = response.data; // error를 체크하면 !!를 붙이지 않아도 컴파일 에러 발생 안함

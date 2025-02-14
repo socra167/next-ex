@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
                 );
     }
 
-
+    @ResponseStatus // SpringDoc에서 메서드 인식할 수 있도록
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<RsData<Empty>> ServiceExceptionHandle(ServiceException ex) {
 
