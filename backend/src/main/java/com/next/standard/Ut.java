@@ -19,7 +19,6 @@ public class Ut {
 
 		public static String toString(Object obj) {
 			try{
-				objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 				return objectMapper.writeValueAsString(obj);
 			} catch (JsonProcessingException e) {
 				throw new RuntimeException(e);
