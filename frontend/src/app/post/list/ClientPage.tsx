@@ -2,6 +2,7 @@
 
 import { components } from "@/lib/backend/apiV1/schema";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ClientPage({
   rsData,
@@ -16,6 +17,7 @@ export default function ClientPage({
   pageSize: number;
   page: number;
 }) {
+  const router = useRouter(); // Next.js의 useRouter()를 사용하면 페이지를 새로고침하지 않고 주소를 바꿀 수 있다. router.push()
   const pageDto = rsData.data;
 
   return (
@@ -32,7 +34,21 @@ export default function ClientPage({
 
       <hr />
 
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          const formData = new FormData(e.target as HTMLFormElement);
+          const searchKeyword = formData.get("searchKeyword") as string;
+          const searchKeywordType = formData.get("searchKeywordType") as string;
+          const page = formData.get("page") as string;
+          const pageSize = formData.get("pageSize") as string;
+
+          router.push(
+            `/post/list?keywordType=${searchKeywordType}&keyword=${searchKeyword}&pageSize=${pageSize}&page=${page}`
+          );
+        }}
+      >
         <select name="keywordType">
           <option value="title">제목</option>
           <option value="content">내용</option>
