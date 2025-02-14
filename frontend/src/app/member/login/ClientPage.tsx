@@ -28,7 +28,8 @@ export default function ClientPage() {
       return;
     }
 
-    router.push(`/post/list`);
+    // router.push(`/post/list`); // 브라우저 방식 X, 넥스트JS 방식
+    window.location.href = "/"; // 브라우저 방식
   }
 
   return (
