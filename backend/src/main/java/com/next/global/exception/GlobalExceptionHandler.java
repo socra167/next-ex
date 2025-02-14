@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.next.global.app.AppConfig;
@@ -15,6 +16,7 @@ import com.next.global.dto.RsData;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ResponseStatus // SpringDoc에서 메서드 인식할 수 있도록
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RsData<Empty>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 
