@@ -1,10 +1,5 @@
-import createClient from "openapi-fetch";
 import ClientPage from "./ClientPage";
-import { paths } from "@/lib/backend/apiV1/schema";
-
-const client = createClient<paths>({
-  baseUrl: "http://localhost:8080",
-});
+import client from "@/app/client";
 
 export default async function Page({ params }: { params: { id: number } }) {
   const id = await params.id;

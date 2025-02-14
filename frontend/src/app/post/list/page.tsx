@@ -1,12 +1,5 @@
-import { components, paths } from "@/lib/backend/apiV1/schema";
-import Link from "next/link";
-import createClient from "openapi-fetch";
 import ClientPage from "./ClientPage";
-import { pages } from "next/dist/build/templates/app-page";
-
-const client = createClient<paths>({
-  baseUrl: "http://localhost:8080",
-});
+import client from "@/app/client";
 
 export default async function Page({
   searchParams,
