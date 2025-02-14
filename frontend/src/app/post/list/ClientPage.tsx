@@ -39,9 +39,9 @@ export default function ClientPage({
           e.preventDefault();
 
           const formData = new FormData(e.target as HTMLFormElement);
-          const searchKeyword = formData.get("searchKeyword") as string;
-          const searchKeywordType = formData.get("searchKeywordType") as string;
-          const page = formData.get("page") as string;
+          const searchKeyword = formData.get("keyword") as string;
+          const searchKeywordType = formData.get("keywordType") as string;
+          const page = 1;
           const pageSize = formData.get("pageSize") as string;
 
           router.push(
