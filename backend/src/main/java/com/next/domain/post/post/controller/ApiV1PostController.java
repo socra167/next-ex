@@ -106,7 +106,7 @@ public class ApiV1PostController {
 		Post post = postService.getItem(id)
 			.orElseThrow(() -> new ServiceException("404-1", "존재하지 않는 글입니다."));
 
-		postService.modify(post, body.title(), body.content());
+		postService.modify(post, body.title(), body.content(), body.published(), body.listed());
 
 		post.canModify(actor);
 
