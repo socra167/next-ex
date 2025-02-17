@@ -24,41 +24,40 @@ export async function middleware(request: NextRequest) {
   console.log("------------------");
   console.log(isLogin, isExpired);
 
-  // 만료가 되었을 때만 새로운 토큰 받아오기
+  // 만료되었을 때만 새로 받아오기
   if (isLogin && isExpired) {
-    // 스프링부트 서버에 한번 더 내정보 조회 요청
+    const nextResponse = NextResponse.next();
+
     const response = await client.GET("/api/v1/members/me", {
       headers: {
         cookie: (await cookies()).toString(),
       },
     });
 
-    // 스프링부트 서버에서 받은 응답 set-cookie를 next응답으로 설정
+    // 스프링부트 서버에서 받아온 쿠키 적용
     const springCookie = response.response.headers.getSetCookie();
     nextResponse.headers.set("set-cookie", String(springCookie));
     return nextResponse;
   }
 
-  const reqToken = request.cookies.get("accessToken");
-
-  // 브라우저가 nextJS에게 요청한 URL
-  console.log(request.nextUrl.toString());
-  console.log(isLogin);
-  if (
-    (!isLogin && request.nextUrl.pathname.startsWith("/post/edit/")) ||
-    request.nextUrl.pathname.startsWith("/post/write")
-  ) {
-    return new NextResponse("로그인이 필요합니다.", {
-      status: 401,
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-      },
-    });
+  if (!isLogin && isProtectedRoute(request.nextUrl.pathname)) {
+    return createUnauthorizedResponse();
   }
-
-  return nextResponse;
+}
+function isProtectedRoute(pathname: string): boolean {
+  return (
+    pathname.startsWith("/post/write") || pathname.startsWith("/post/edit")
+  );
 }
 
+function createUnauthorizedResponse(): NextResponse {
+  return new NextResponse("로그인이 필요합니다.", {
+    status: 401,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+    },
+  });
+}
 export const config = {
   matcher: "/((?!.*\\.|api\\/).*)",
 };
