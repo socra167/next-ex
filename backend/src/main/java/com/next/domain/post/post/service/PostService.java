@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,7 +67,7 @@ public class PostService {
 	}
 
 	public Page<Post> getListedItems(int page, int pageSize, SearchKeywordType keywordType, String keyword) {
-		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
 		String likeKeyword = "%" + keyword + "%";
 		if (SearchKeywordType.content.equals(keywordType)) {
 			return postRepository.findByListedAndContentLike(true, likeKeyword, pageRequest);
@@ -75,7 +76,7 @@ public class PostService {
 	}
 
 	public Page<Post> getMines(int page, int pageSize, Member author, SearchKeywordType keywordType, String keyword) {
-		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
 		String likeKeyword = "%" + keyword + "%";
 		if (SearchKeywordType.content.equals(keywordType)) {
 			return postRepository.findByAuthorAndContentLike(author, likeKeyword, pageRequest);
