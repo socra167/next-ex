@@ -4,6 +4,14 @@ import client from "./app/client";
 
 export async function middleware(request: NextRequest) {
   const reqToken = request.cookies.get("accessToken");
+
+  // 브라우저가 nextJS에게 요청한 URL
+  console.log(request.nextUrl.toString());
+  if (request.nextUrl.pathname.startsWith("/post/edit/")) {
+    console.log("접근 권한이 없습니다.");
+    return NextResponse.error();
+  }
+
   // 스프링부트 서버가 준 쿠키를 nextResponse에 심어주면 된다.
   const nextResponse = NextResponse.next(); // NextJS의 Response
 

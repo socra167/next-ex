@@ -1,6 +1,5 @@
 import client from "@/app/client";
 import ClientPage from "./ClientPage";
-import path from "path";
 
 export default async function Page({
   params,
@@ -21,7 +20,7 @@ export default async function Page({
   });
 
   if (response.error) {
-    alert(response.error.msg);
+    console.log(response.error.msg);
     return;
   }
 
