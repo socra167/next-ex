@@ -2,7 +2,10 @@ import ClientPage from "./ClientPage";
 import client from "@/app/client";
 
 export default async function Page({ params }: { params: { id: number } }) {
-  const id = await params.id;
+  // Nextjs에선 서버 컴포넌트가 파라미터를 받을 때 비동기로 처리해야 한다.
+  // params가 다 받아지면, 안에 있는 걸 꺼내 사용한다.
+  //   const id = await params.id;
+  const { id } = await params; // 파라미터의 값을 순서대로 대응한다.
 
   const response = await client.GET("/api/v1/posts/{id}", {
     params: {
