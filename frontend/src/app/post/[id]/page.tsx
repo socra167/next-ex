@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import ClientPage from "./ClientPage";
 import client from "@/app/client";
 
@@ -22,7 +23,17 @@ export default async function Page({ params }: { params: { id: number } }) {
   }
 
   const rsData = response.data; // error를 체크하면 !!를 붙이지 않아도 컴파일 에러 발생 안함
+  const fetchMeResponse = await client.GET("/api/v1/members/me", {
+    headers: {
+      cookie: (await cookies()).toString(),
+    },
+  });
+  if (fetchMeResponse.error) {
+    alert(fetchMeResponse.error.msg);
+    return;
+  }
   const post = rsData.data;
+  const me = fetchMeResponse.data.data;
 
-  return <ClientPage post={post} />;
+  return <ClientPage post={post} me={me} />;
 }
