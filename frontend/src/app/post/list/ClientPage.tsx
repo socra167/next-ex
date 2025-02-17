@@ -4,7 +4,7 @@ import { components } from "@/lib/backend/apiV1/schema";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function ClientPage({
+export default function ClinetPage({
   rsData,
   keywordType,
   keyword,
@@ -17,21 +17,17 @@ export default function ClientPage({
   pageSize: number;
   page: number;
 }) {
-  const router = useRouter(); // Next.js의 useRouter()를 사용하면 페이지를 새로고침하지 않고 주소를 바꿀 수 있다. router.push()
+  const router = useRouter();
   const pageDto = rsData.data;
-
   return (
     <div>
       <h1>글 목록</h1>
-
-      <div>응답 코드: {rsData.code}</div>
-      <div>결과 메시지: {rsData.msg}</div>
-
-      <div>totalPages: {pageDto.totalPages}</div>
-      <div>totalItems: {pageDto.totalItems}</div>
-      <div>currentPageNo: {pageDto.currentPageNo}</div>
-      <div>pageSize: {pageDto.pageSize}</div>
-
+      <div>응답 코드 : {rsData.code}</div>
+      <div>결과 메시지 : {rsData.msg}</div>
+      <div>totalPages : {pageDto.totalPages}</div>
+      <div>totalItems : {pageDto.totalItems}</div>
+      <div>currentPageNo : {pageDto.currentPageNo}</div>
+      <div>pageSize : {pageDto.pageSize}</div>
       <hr />
 
       <form
@@ -49,7 +45,7 @@ export default function ClientPage({
           );
         }}
       >
-        <select name="keywordType">
+        <select name="keywordType" defaultValue={keywordType}>
           <option value="title">제목</option>
           <option value="content">내용</option>
         </select>
@@ -58,10 +54,12 @@ export default function ClientPage({
           type="text"
           name="keyword"
           defaultValue={keyword}
-        ></input>
-        <input type="submit" value="검색"></input>
-        <label className="ml-2">페이지당 행 개수</label>
-        <select name="pageSize" defaultValue="30">
+        />
+        <input type="submit" value="검색" />
+        <label className="ml-5" htmlFor="">
+          페이지당 행 개수 :
+        </label>
+        <select name="pageSize" defaultValue={pageSize}>
           <option value="10">10</option>
           <option value="30">30</option>
           <option value="50">50</option>
@@ -73,7 +71,7 @@ export default function ClientPage({
             return (
               <Link
                 key={pageNo}
-                className={pageNo == page ? `text-blue-500` : ""}
+                className={pageNo == page ? `text-red-500` : `text-blue-500`}
                 href={`/post/list?keywordType=${keywordType}&keyword=${keyword}&pageSize=${pageSize}&page=${pageNo}`}
               >
                 {pageNo}
@@ -87,12 +85,12 @@ export default function ClientPage({
           return (
             <li className="border-2 border-red-500 my-2 p-2" key={item.id}>
               <Link href={`/post/${item.id}`}>
-                <div>id: {item.id}</div>
-                <div>title: {item.title}</div>
-                <div>authorId: {item.authorId}</div>
-                <div>authorName: {item.authorName}</div>
-                <div>published: {`${item.published}`}</div>
-                <div>listed: {`${item.listed}`}</div>
+                <div>id : {item.id}</div>
+                <div>title : {item.title}</div>
+                <div>authorId : {item.authorId}</div>
+                <div>authorName : {item.authorName}</div>
+                <div>published : {`${item.published}`}</div>
+                <div>listed : {`${item.listed}`}</div>
               </Link>
             </li>
           );
