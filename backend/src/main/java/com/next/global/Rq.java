@@ -46,7 +46,7 @@ public class Rq {
 	public void setLogin(Member actor) {
 		// Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // 인증 정보 저장소
 		// security는 인증된 사람이 여기 들어 있다고 생각하고 사용한다
-		UserDetails user = new SecurityUser(actor.getId(), actor.getUsername(), "", actor.getAutorities());
+		UserDetails user = new SecurityUser(actor.getId(), actor.getUsername(), "", actor.getNickname(), actor.getAutorities());
 
 		// 인증 정보를 수동으로 등록
 		SecurityContextHolder.getContext().setAuthentication(
@@ -71,6 +71,7 @@ public class Rq {
 		return Member.builder()
 			.id(user.getId())
 			.username(user.getUsername())
+			.nickname(user.getNickname())
 			.build();
 	}
 

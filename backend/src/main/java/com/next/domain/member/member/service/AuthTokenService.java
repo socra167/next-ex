@@ -21,7 +21,7 @@ public class AuthTokenService {
 		return Ut.Jwt.createToken(
 			keyString,
 			expireSeconds,
-			Map.of("id", member.getId(), "username", member.getUsername())
+			Map.of("id", member.getId(), "username", member.getUsername(), "nickname", member.getNickname())
 		);
 	}
 

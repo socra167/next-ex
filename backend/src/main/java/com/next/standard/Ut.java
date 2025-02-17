@@ -8,7 +8,6 @@ import javax.crypto.SecretKey;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
