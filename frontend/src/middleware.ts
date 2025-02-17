@@ -8,8 +8,12 @@ export async function middleware(request: NextRequest) {
   // 브라우저가 nextJS에게 요청한 URL
   console.log(request.nextUrl.toString());
   if (request.nextUrl.pathname.startsWith("/post/edit/")) {
-    console.log("접근 권한이 없습니다.");
-    return NextResponse.error();
+    return new NextResponse("로그인이 필요합니다.", {
+      status: 401,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+      },
+    });
   }
 
   // 스프링부트 서버가 준 쿠키를 nextResponse에 심어주면 된다.
