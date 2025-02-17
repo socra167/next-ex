@@ -16,7 +16,9 @@ export async function middleware(request: NextRequest) {
 
   // 스프링부트 서버에서 받은 응답 set-cookie를 next응답으로 설정
   const springCookie = response.response.headers.getSetCookie();
+  console.log(springCookie);
   nextResponse.headers.set("set-cookie", String(springCookie));
+  return nextResponse;
 }
 
 export const config = {
