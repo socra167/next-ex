@@ -4,20 +4,27 @@ import Link from "next/link";
 import client from "./client";
 import { useRouter } from "next/navigation";
 import { components } from "@/lib/backend/apiV1/schema";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
 export default function ClinetLayout({
   children,
   me,
+  fontVariable,
+  fontClassName,
 }: Readonly<{
   children: React.ReactNode;
   me: components["schemas"]["MemberDto"];
+  fontVariable: string;
+  fontClassName: string;
 }>) {
   const router = useRouter();
   const isLoggedIn = !(me.id == 0);
 
   return (
-    <html lang="en">
-      <body className="min-h-[100dvh] flex flex-col">
+    <html lang="en" className={`${fontVariable}`}>
+      <body className={`min-h-[100dvh] flex flex-col ${fontVariable}`}>
         <header className="flex gap-3">
           <Link href="/">메인</Link>
           <Link href="/about">소개</Link>
