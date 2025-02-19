@@ -56,13 +56,13 @@ export default function ClinetLayout({
           <DropdownMenu>
             <DropdownMenuTrigger>Open</DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>
-                <FontAwesomeIcon icon={faHouse} />
+              <DropdownMenuLabel className="flex gap-1">
+                <FontAwesomeIcon icon={faHouse} className="self-center" />
                 <Link href="/">Home</Link>
               </DropdownMenuLabel>
-              <DropdownMenuLabel>
+              <DropdownMenuItem>
                 <Link href="/member/me">내정보</Link>
-              </DropdownMenuLabel>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Link href="/about">소개</Link>
