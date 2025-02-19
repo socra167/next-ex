@@ -4,6 +4,8 @@ import Link from "next/link";
 import client from "./client";
 import { useRouter } from "next/navigation";
 import { components } from "@/lib/backend/apiV1/schema";
+import { faBookBookmark, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ClinetLayout({
   children,
@@ -22,6 +24,11 @@ export default function ClinetLayout({
   return (
     <html lang="en" className={`${fontVariable}`}>
       <body className={`min-h-[100dvh] flex flex-col ${fontVariable}`}>
+        <FontAwesomeIcon
+          icon={faThumbsUp}
+          className="fa-fw text-4xl text-[red]"
+        />
+        <FontAwesomeIcon icon={faBookBookmark} />
         <header className="flex gap-3">
           <Link href="/">메인</Link>
           <Link href="/about">소개</Link>

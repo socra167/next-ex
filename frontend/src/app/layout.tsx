@@ -4,6 +4,9 @@ import ClientLayout from "./ClientLayout";
 import client from "./client";
 import { cookies } from "next/headers";
 import localFont from "next/font/local";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
 export const metadata: Metadata = {
   title: "Create Next App",
